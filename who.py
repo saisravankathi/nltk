@@ -19,8 +19,8 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 
 
 def featuresets():
-    who_text = open('C:\\Users\\Naruto_kathi\\Desktop\\Questions\\who.txt', 'r')
-    sample_text = open('C:\\Users\\Naruto_kathi\\Desktop\\Questions\\sample.txt', 'r')
+    who_text = open('Questions\\who.txt', 'r')
+    sample_text = open('Questions\\sample.txt', 'r')
     who_words = [(feature_extractor(word),'KATHI') for word in sample_text.read().split('\n')] + [(feature_extractor(word),'PER@') for word in who_text.read().split('\n') if '#' not in word]
     return who_words
 def classifier(train_data):
