@@ -1,0 +1,3 @@
+from guianalyser import *
+
+main()
