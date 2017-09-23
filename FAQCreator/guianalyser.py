@@ -1,6 +1,8 @@
 from tkinter import *
-class scrollTxtArea:
-    global kathi
+from who import *
+import os
+
+class ScrollTxtArea:
     
     def __init__(self, root):
         frame = Frame(root)
@@ -9,7 +11,7 @@ class scrollTxtArea:
         self.createEntry(frame)
         self.createButton(frame)
         self.textArea(frame)
-        return
+        
     def textPad(self,frame):
         textPad = Frame(frame)
         self.text = Text(textPad, height=8, width=90)
@@ -21,7 +23,7 @@ class scrollTxtArea:
         scroll.pack(side=RIGHT,fill=Y)
         textPad.pack(side=TOP)
         self.text.get("1.0",END)
-        return
+        
     def textArea(self,frame):
         textArea = Frame(frame)
         self.textResult = Text(textArea, height=8, width=90)
@@ -37,26 +39,47 @@ class scrollTxtArea:
         self.entry = Entry(entryBox)
         self.entry.pack(side=LEFT)
         entryBox.pack(side=TOP)
-        return
     
     def createButton(self,frame):
         button = Frame(frame)
-        self.button = Button(button, text="Print",command=self.printValue)
+        self.button = Button(button, text="Print",command=kathiPrint)
         self.button.pack(side=LEFT)
         button.pack(side=TOP)
-        return
 
     def printValue(self):
         self.textResult.insert(END,"\n"+self.entry.get())
-        print(self.entry.get())
-        print(self.text.get("1.0",END).split("\n")[0])
+        #Providing training data to the classifier.
+    #     scriptpath = os.path.dirname(__file__)
+    #     filename_who = os.path.join(scriptpath,'who.txt')
+    #     filename_sample = os.path.join(scriptpath, 'sample.txt')
+    # 
+    #     whoText = open(filename_who, 'r')
+    #     sampleText = open(filename_sample, 'r')
+    #     classifyer = Classifier()
+    #     classifyer.kathi(whoText,sampleText,self.textResult.get("1.0",END))
+    #     print (classifyer.finalListOfSentences)
         
-def main():
-    root = Tk()
-    root.resizable(width=False, height=False)
-    foo = scrollTxtArea(root)
-    root.title('Text with Scroll')
-    root.mainloop()
-    return foo
+    def getValues(self, clasifier):
+        
+        print(clasifier.fL)
+        
 
+def kathiPrint():
+      #Providing training data to the classifier.
+    scriptpath = os.path.dirname(__file__)
+    filename_who = os.path.join(scriptpath,'who.txt')
+    filename_sample = os.path.join(scriptpath, 'sample.txt')
+
+    whoText = open(filename_who, 'r')
+    sampleText = open(filename_sample, 'r')
+    c = Classifier(whoText,sampleText,foo.text.get("1.0",END),[])
+    foo.getValues(c)
+    
+root = Tk()
+root.resizable(width=False, height=False)
+foo = ScrollTxtArea(root)
+    # a = foo.printValue()
+    # print(a)
+root.title('Text with Scroll')
+root.mainloop()
 

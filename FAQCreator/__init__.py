@@ -1,3 +1,4 @@
 from guianalyser import *
 
-main()
+foo = main()
+print(fool())
