@@ -60,8 +60,9 @@ class ScrollTxtArea:
     #     print (classifyer.finalListOfSentences)
         
     def getValues(self, clasifier):
-        
-        print(clasifier.fL)
+        self.textResult.insert(END,"\nQustion:"+foo.entry.get())
+        for v in clasifier.fL:
+            self.textResult.insert(END, "\nA: "+v)
         
 
 def kathiPrint():

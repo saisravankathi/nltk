@@ -28,13 +28,10 @@ class Classifier:
         
     def printSentences(self, sentences):
         self.finalList = []
-        print(self.fL)
-        print("wait for it to execute", end="\n")
         for s in sentences:
             for(a,b) in nltk.pos_tag(word_tokenize(s)):
                 if 'NN' in b and self.classifier.classify(self.feature_extractor(a)) == 'PER@':
                     self.finalList.append(s)
-                    print(s)
         self.fL += self.finalList
     
     
