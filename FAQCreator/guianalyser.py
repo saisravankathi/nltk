@@ -61,19 +61,20 @@ class ScrollTxtArea:
         
     def getValues(self, clasifier):
         self.textResult.insert(END,"\nQustion:"+foo.entry.get())
-        for v in clasifier.fL:
-            self.textResult.insert(END, "\nA: "+v)
+        print(clasifier.fL)
+        #for v in clasifier.fL:
+            #self.textResult.insert(END, "\n"+v.key()+": "+v.value())
         
 
 def kathiPrint():
       #Providing training data to the classifier.
     scriptpath = os.path.dirname(__file__)
-    filename_who = os.path.join(scriptpath,'who.txt')
-    filename_sample = os.path.join(scriptpath, 'sample.txt')
+    filename_when = os.path.join(scriptpath,'when.txt')
+    filename_where = os.path.join(scriptpath, 'where.txt')
 
-    whoText = open(filename_who, 'r')
-    sampleText = open(filename_sample, 'r')
-    c = Classifier(whoText,sampleText,foo.text.get("1.0",END),[])
+    whenText = open(filename_when, 'r')
+    whereText = open(filename_where, 'r')
+    c = Classifier(whenText,whereText,foo.text.get("1.0",END),dict())
     foo.getValues(c)
     
 root = Tk()
