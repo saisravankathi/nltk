@@ -10,6 +10,7 @@ class ScrollTxtArea:
         self.textPad(frame)
         self.createEntry(frame)
         self.createButton(frame)
+        self.createClearButton(frame)
         self.textArea(frame)
         
     def textPad(self,frame):
@@ -42,46 +43,50 @@ class ScrollTxtArea:
     
     def createButton(self,frame):
         button = Frame(frame)
-        self.button = Button(button, text="Print",command=kathiPrint)
+        self.button = Button(button, text="Print",command=faqPrint)
         self.button.pack(side=LEFT)
         button.pack(side=TOP)
-
-    def printValue(self):
-        self.textResult.insert(END,"\n"+self.entry.get())
-        #Providing training data to the classifier.
-    #     scriptpath = os.path.dirname(__file__)
-    #     filename_who = os.path.join(scriptpath,'who.txt')
-    #     filename_sample = os.path.join(scriptpath, 'sample.txt')
-    # 
-    #     whoText = open(filename_who, 'r')
-    #     sampleText = open(filename_sample, 'r')
-    #     classifyer = Classifier()
-    #     classifyer.kathi(whoText,sampleText,self.textResult.get("1.0",END))
-    #     print (classifyer.finalListOfSentences)
+        
+    def createClearButton(self,frame):
+        clearbutton = Frame(frame)
+        self.clrbutton = Button(clearbutton, text="Clear",command=self.clearResults)
+        self.clrbutton.pack(side=RIGHT)
+        clearbutton.pack(side=TOP)
         
     def getValues(self, clasifier):
         self.textResult.insert(END,"\nQustion:"+foo.entry.get())
-        print(clasifier.fL)
-        #for v in clasifier.fL:
-            #self.textResult.insert(END, "\n"+v.key()+": "+v.value())
-        
+        for v in clasifier.fSet:
+            self.textResult.insert(END,"\nAnswer:"+v)
+            
+    def getAlertValues(self):
+        self.textResult.insert(END,"\nWarning: Please enter the question.")
 
-def kathiPrint():
-      #Providing training data to the classifier.
+    def clearResults(self):
+        self.textResult.delete(1.0,END)
+            
+
+def faqPrint():
+    #Providing training data to the classifier.
     scriptpath = os.path.dirname(__file__)
     filename_when = os.path.join(scriptpath,'when.txt')
     filename_where = os.path.join(scriptpath, 'where.txt')
+    filename_who = os.path.join(scriptpath, 'who.txt')
 
     whenText = open(filename_when, 'r')
     whereText = open(filename_where, 'r')
-    c = Classifier(whenText,whereText,foo.text.get("1.0",END),dict())
-    foo.getValues(c)
+    whoText = open(filename_who, 'r')
+    if foo.entry.get() != '':
+        c = Classifier(whenText,whereText,whoText,foo.text.get("1.0",END),foo.entry.get(),dict())
+        foo.getValues(c)
+    else:
+        foo.getAlertValues()
+    foo.entry.delete(0,END)
     
 root = Tk()
 root.resizable(width=False, height=False)
 foo = ScrollTxtArea(root)
-    # a = foo.printValue()
+    
     # print(a)
-root.title('Text with Scroll')
+root.title('FAQCreator')
 root.mainloop()
 
