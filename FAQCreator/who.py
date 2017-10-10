@@ -84,6 +84,7 @@ class Classifier:
             verbalList = []
             #for (c,d) in tagged_sent:
                 #if 'VB' in d:
+                # we need to filter the sentences based on noun and filter those sentences from the stemmed verbs.
             for s in finalSet:
                 for (a,b) in nltk.pos_tag(word_tokenize(s)):
                     if 'VB' in b and a.lower() not in vExList:
