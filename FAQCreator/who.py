@@ -85,14 +85,21 @@ class Classifier:
             #for (c,d) in tagged_sent:
                 #if 'VB' in d:
                 # we need to filter the sentences based on noun and filter those sentences from the stemmed verbs.
+            kathi = ""
             for s in finalSet:
-                for (a,b) in nltk.pos_tag(word_tokenize(s)):
-                    if 'VB' in b and a.lower() not in vExList:
-                        for (c,d) in tagged_sent:
-                            if 'VB' in d and c.lower() not in vExList:
-                                print(ps.stem(a))
-                                if ps.stem(a) == ps.stem(c):
-                                    verbalList.append(s)
+                for (k,l) in nltk.pos_tag(word_tokenize(s)):
+                    kathi = k
+                    break
+                print(kathi)
+                if kathi.lower() in questionTxt.lower():
+                    print(s)
+                    for (a,b) in nltk.pos_tag(word_tokenize(s)):
+                        if 'VB' in b and a.lower() not in vExList:
+                            for (c,d) in tagged_sent:
+                                if 'VB' in d and c.lower() not in vExList:
+                                    print(ps.stem(a))
+                                    if ps.stem(a) == ps.stem(c):
+                                        verbalList.append(s)
             return set(verbalList)
                         
                     

@@ -1,1 +1,1 @@
-hyderabad,vizag,vishakapatnam,delhi,pitapuram,telangana,chennai,
+hyderabad,vizag,vishakapatnam,delhi,pitapuram,telangana,chennai,sonata,
