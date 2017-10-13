@@ -6,13 +6,18 @@ class ScrollTxtArea:
     
     def __init__(self, root):
         frame = Frame(root)
-        frame.pack()
+        frameG = Frame(root)
+        for f in (frame,frameG):
+            f.grid(row=0, column=0, sticky="news")
+        self.gifFrame(frameG,frame)
+        raise_frame(frameG)
         self.textPad(frame)
         self.createEntry(frame)
         self.createButton(frame)
         self.createClearButton(frame)
         self.textArea(frame)
         root.bind_class("Text","<Control-a>",self.selectAllTextAreaText)
+        
         
     def textPad(self,frame):
         textPad = Frame(frame)
@@ -84,6 +89,13 @@ class ScrollTxtArea:
         
     def selectAllTextAreaText(self, event):
         event.widget.tag_add("sel","1.0","end")
+        
+    def gifFrame(self, frameG,frame):
+        gButton = Button(frameG, text="Investigate",command=lambda:raise_frame(frame))
+        gButton.pack()
+        
+def raise_frame(showFrame):
+        showFrame.tkraise()
             
 
 def faqPrint():
