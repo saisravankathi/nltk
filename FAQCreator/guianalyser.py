@@ -2,6 +2,7 @@ from tkinter import *
 from who import *
 import os
 import time
+import pyttsx3
 
 
 class ScrollTxtArea:
@@ -17,6 +18,8 @@ class ScrollTxtArea:
         self.createEntry(frame)
         self.createButton(frame)
         self.createClearButton(frame)
+        #ONCE THE PRINT BUTTON IS CLICKED THEN ONLY WE NEED TO ENABLE THE TTS BUTTON and need to disable again when clear button is clicked.
+        self.createTTSButton(frame)
         self.textArea(frame)
         root.bind_class("Text","<Control-a>",self.selectAllTextAreaText)
         
@@ -63,15 +66,24 @@ class ScrollTxtArea:
         self.clrbutton.pack(side=RIGHT)
         clearbutton.pack(side=TOP)
         
+    def createTTSButton(self, frame):
+        ttsButton = Frame(frame)
+        self.ttsbutton = Button(ttsButton, text = 'TTS', command=self.getTTSOutput)
+        self.ttsbutton.pack(side=RIGHT)
+        ttsButton.pack(side=RIGHT)
+        
     def getValues(self, clasifier):
         #print("before ques: ",self.textResult.index("end-1c"))
         self.textResult.insert(END,"\nQustion:"+foo.entry.get())
         self.textResult.tag_add("question_txt",self.textResult.index("end-1c linestart"),self.textResult.index("end-1c"))
         self.textResult.tag_config("question_txt",foreground="green")
+        self.answerTTS = ""
         for v in clasifier.fSet:
             #print("before ans: ",self.textResult.index("end-1c"))
             self.textResult.insert(END,"\nAnswer:"+v)
+            self.answerTTS += v
             #print("after ans: ",self.textResult.index("end-1c"))
+        self.questionTTS = foo.entry.get()
             
     def getAlertValues(self):
         self.textResult.insert(END,"\nWarning: Please enter the question.")
@@ -99,6 +111,11 @@ class ScrollTxtArea:
         w.pack()
         gButton = Button(frameG, text="Investigate",command=lambda:raise_frame(frame))
         gButton.pack()
+        
+    def getTTSOutput(self):
+        e.say("For the question, "+self.questionTTS)
+        e.say("The answers are, "+self.answerTTS)
+        e.runAndWait()
 
        
 def raise_frame(showFrame):
@@ -138,10 +155,14 @@ def faqEnterPrint(event):
     else:
         foo.getAlertValues()
     foo.entry.delete(0,END)
+
+   
     
 root = Tk()
 root.resizable(width=False, height=False)
 root.geometry("740x400")
+e = pyttsx3.init()
+e.setProperty("rate",150)
 foo = ScrollTxtArea(root)
     
     # print(a)
